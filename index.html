@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Twiddler</title>
+    <link rel="icon" href="img/twiddler.png">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <link rel="stylesheet" href="main.css">
@@ -24,7 +26,30 @@
       });
 
     </script>
-    <div class="page-container">
+      <div class="nav-bar">
+        <div class="nav-top">
+          <div class="nav-button"><a href=""><img class="icon" src="img/twiddler.png">Home</a></div>
+          <div class="nav-button"><a href=""><img class="icon" src="img/lightning.png">Moments</a></div>
+          <div class="nav-right">
+            <input class="search" type="text" placeholder="#HackReactor">
+            <a href="">Already a user? <strong>Log in</strong></a>
+          </div>
+        </div>
+        <div class="nav-title">
+          <p class="hashtag">#HackReactor</p>
+        </div>
+        <div class="nav-bot">
+          <ul>
+            <li class="first"><a href="">Top</a></li>
+            <li class="other"><a href="">Latest</a></li>
+            <li class="other"><a href="">People</a></li>
+            <li class="other"><a href="">Photos</a></li>
+            <li class="other"><a href="">Video</a></li>
+            <li class="other"><a href="">News</a></li>
+            <li class="other"><a href="">Broadcasts</a></li>
+          </ul>
+        </div>
+      </div>
       <h1>Tweets</h1>
       <div class="tweet-list"></div>
     </div>
