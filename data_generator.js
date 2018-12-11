@@ -13,6 +13,7 @@ streams.users.mracus = [];
 streams.users.douglascalhoun = [];
 window.users = Object.keys(streams.users);
 
+
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
   var username = newTweet.user;
@@ -67,3 +68,52 @@ var writeTweet = function(message){
   tweet.message = message;
   addTweet(tweet);
 };
+
+var loadTweets = function(){
+  
+  var $body = $('.tweet-list');
+  $body.html('');  
+  var index = streams.home.length - 1;
+  setTimeout(newTweets, 1000);
+  console.log(streams.home);
+  while(index >= 0){
+    var tweet = streams.home[index];
+    var $tweet = $('<div class="tweet"></div>');
+    $('<img />', { 
+      class: 'profile',
+      src: 'img/profile.png'
+    }).appendTo($tweet);
+    $('<a></a>', {
+      class: 'user-name',
+      href: '',
+      text: tweet.user
+    }).appendTo($tweet);
+    $('<span></span>', {
+      class: 'tweet-time',
+      text: timeago().format(new Date)
+    }).appendTo($tweet);
+    $('<p></p>', {
+      class: 'tweet-message',
+      text: tweet.message
+    }).appendTo($tweet);
+    //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+    $tweet.appendTo($body);
+    index -= 1;
+  }
+  
+};
+
+var newTweets = function() {
+  var $body = $('.tweet-list');
+  var difference = streams.home.length - $body.children().size();
+  console.log(streams.home.length );
+  console.log($body.children().size())
+  console.log(difference);
+  var $newResults = $('<div class="results-box"></div>');
+  $('<a></a>', {
+    href: '',
+    class: 'result-message',
+    text: difference + " new results"
+  }).appendTo($newResults);
+  $newResults.prependTo($body);
+}
