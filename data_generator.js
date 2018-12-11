@@ -84,8 +84,9 @@ var loadTweets = function(){
     }).appendTo($tweet);
     $('<a></a>', {
       class: 'user-name',
-      href: '',
-      text: tweet.user
+      href: '#',
+      onclick: "loadUserTweets(this.text);return false;",
+      text: tweet.user,
     }).appendTo($tweet);
     $('<span></span>', {
       class: 'tweet-time',
@@ -122,4 +123,40 @@ var updateNewResults = function() {
   var $body = $('.tweet-list');
   var difference = streams.home.length - $body.children().size();
   $('.result-message').text(difference + ' new results');
+}
+
+var loadUserTweets = function(target) {
+  console.log(target);
+  var user_data = streams.home.filter((u) => {console.log(u);return u.user === target;});
+  console.log(user_data);
+  var $body = $('.tweet-list');
+  $body.html('');  
+  var index = user_data.length - 1;
+  setTimeout(newResults, 2000);
+  while(index >= 0){
+    var tweet = user_data[index];
+    var $tweet = $('<div class="tweet"></div>');
+    $('<img />', { 
+      class: 'profile',
+      src: 'img/profile.png'
+    }).appendTo($tweet);
+    $('<a></a>', {
+      class: 'user-name',
+      href: '#',
+      onclick: "loadUserTweets(this.text);return false;",
+      text: tweet.user,
+    }).appendTo($tweet);
+    $('<span></span>', {
+      class: 'tweet-time',
+      text: timeago().format(tweet.created_at)
+    }).appendTo($tweet);
+    $('<p></p>', {
+      class: 'tweet-message',
+      text: tweet.message
+    }).appendTo($tweet);
+    //$tweet.text('@' + tweet.user + ': ' + tweet.message);
+    $tweet.appendTo($body);
+    index -= 1;
+  }
+
 }
