@@ -12,7 +12,7 @@ streams.users.sharksforcheap = [];
 streams.users.mracus = [];
 streams.users.douglascalhoun = [];
 window.users = Object.keys(streams.users);
-
+var visitor = 'anonymous';
 
 // utility function for adding tweets to our data structures
 var addTweet = function(newTweet){
@@ -51,6 +51,8 @@ for(var i = 0; i < 10; i++){
   generateRandomTweet();
 }
 
+streams.users[visitor] = [];
+
 var scheduleNextTweet = function(){
   generateRandomTweet();
   setTimeout(scheduleNextTweet, Math.random() * 1500);
@@ -70,7 +72,6 @@ var writeTweet = function(message){
 };
 
 var loadTweets = function(){
-  
   var $body = $('.tweet-list');
   $body.html('');  
   var index = streams.home.length - 1;
@@ -159,4 +160,10 @@ var loadUserTweets = function(target) {
     index -= 1;
   }
 
+}
+
+var saySomething = function() {
+  var message = prompt("What would you like to tweet?");
+  writeTweet(message);
+  loadTweets();
 }
