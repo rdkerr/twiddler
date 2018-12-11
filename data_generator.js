@@ -74,8 +74,7 @@ var loadTweets = function(){
   var $body = $('.tweet-list');
   $body.html('');  
   var index = streams.home.length - 1;
-  setTimeout(newTweets, 1000);
-  console.log(streams.home);
+  setTimeout(newResults, 2000);
   while(index >= 0){
     var tweet = streams.home[index];
     var $tweet = $('<div class="tweet"></div>');
@@ -90,7 +89,7 @@ var loadTweets = function(){
     }).appendTo($tweet);
     $('<span></span>', {
       class: 'tweet-time',
-      text: timeago().format(new Date)
+      text: timeago().format(tweet.created_at)
     }).appendTo($tweet);
     $('<p></p>', {
       class: 'tweet-message',
@@ -103,17 +102,24 @@ var loadTweets = function(){
   
 };
 
-var newTweets = function() {
+var newResults = function() {
   var $body = $('.tweet-list');
   var difference = streams.home.length - $body.children().size();
-  console.log(streams.home.length );
-  console.log($body.children().size())
-  console.log(difference);
+  setInterval(updateNewResults, 5000);
   var $newResults = $('<div class="results-box"></div>');
   $('<a></a>', {
-    href: '',
+    href: '#',
+    onclick: "loadTweets();return false;",
     class: 'result-message',
     text: difference + " new results"
   }).appendTo($newResults);
   $newResults.prependTo($body);
+  
+  
+}
+
+var updateNewResults = function() {
+  var $body = $('.tweet-list');
+  var difference = streams.home.length - $body.children().size();
+  $('.result-message').text(difference + ' new results');
 }
